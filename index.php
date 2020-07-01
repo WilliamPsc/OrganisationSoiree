@@ -19,21 +19,21 @@
 
 <body>
     <?php
-        session_start();
-        include "bdd/connect.php";
+    session_start();
+    include "bdd/connect.php";
 
-        if (isset($_SESSION['pseudo'])) {
-            $test = $mysqli->query("SELECT SUM(org_statut) FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
-                $val = $test->fetch_assoc();
-                if($val['SUM(org_statut)'] == 1){
-                    header('Location: invite/index.php');
-                }
-                if($val['SUM(org_statut)'] == 0){
-                    header('Location: admin/index.php');
-                }
-        } else {
-            include "bdd/info.php";
-        }
+    if (isset($_SESSION['pseudo'])) {
+        $test = $mysqli->query("SELECT SUM(org_statut) FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
+            $val = $test->fetch_assoc();
+            if($val['SUM(org_statut)'] == 1){
+                header('Location: invite/index.php');
+            }
+            if($val['SUM(org_statut)'] == 0){
+                header('Location: admin/index.php');
+            }
+    } else {
+        include "bdd/info.php";
+    }
     ?>
 
 <div class="jumbotron text-center" id="titre" style="margin-bottom:0">
@@ -61,7 +61,7 @@
                         ctx = canvas.getContext( '2d' ),
                         // full screen dimensions
                         cw = 1100,
-                        ch = 500,
+                        ch = 500,                       
                         // firework collection
                         fireworks = [],
                         // particle collection
@@ -81,8 +81,19 @@
                         my;
                         
                 // set canvas dimensions
-                canvas.width = cw;
-                canvas.height = ch;
+                if(window.innerWidth >= 1100){
+                    canvas.width = cw;
+                }else{
+                    canvas.width = window.innerWidth - 100;
+                    cw = window.innerWidth - 100;
+                }
+
+                if(window.innerHeight >= 500){
+                    canvas.height = ch;
+                }else{
+                    canvas.height = window.innerHeight - 100;
+                    ch = window.innerHeight - 100;
+                }
 
                 // now we are going to setup our function placeholders for the entire demo
 

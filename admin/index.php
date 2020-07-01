@@ -81,8 +81,19 @@
                         my;
                         
                 // set canvas dimensions
-                canvas.width = cw;
-                canvas.height = ch;
+                if(window.innerWidth >= 1100){
+                    canvas.width = cw;
+                }else{
+                    canvas.width = window.innerWidth - 100;
+                    cw = window.innerWidth - 100;
+                }
+
+                if(window.innerHeight >= 500){
+                    canvas.height = ch;
+                }else{
+                    canvas.height = window.innerHeight - 100;
+                    ch = window.innerHeight - 100;
+                }
 
                 // now we are going to setup our function placeholders for the entire demo
 
