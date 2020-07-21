@@ -8,6 +8,7 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
     $prenom = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['prenom']));
     $nom = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['nom']));
     $voiture = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['voiture']));
+    $vient = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['vient']));
     $place = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['place']));
     $amene = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['amene']));
     $matelas = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['matelas']));
@@ -15,22 +16,28 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
     $password = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pwd']));
     $pass = hash('sha256', $password);
 
+    $pseudoUsed = "SELECT COUNT(*) AS nbPseudo FROM `t_organisateur_org` WHERE `org_pseudo` = '" . $pseudo . "'";
+    $res = mysqli_query($mysqli, $pseudoUsed);
+    $present  = mysqli_fetch_assoc($res);
+    if($present['nbPseudo'] != 0){
+        header('Location : pseudoexistant.php');
+    } else {
+        if ($prenom !== "" && $nom != "" && $voiture != "" && $place != "" && $matelas != "" && $pseudo != "" && $pass != "") {
+            $requete1 = "INSERT INTO `t_soiree_sre`(`org_pseudo`, `sre_prenom`, `sre_confirmation`, `sre_voiture`, `sre_vient`, `sre_place`, `sre_amene`, `sre_matelas`)
+                            VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $vient . "','" . $place . "','" . $amene . "','" . $matelas . "')";
+            $exec_requete = mysqli_query($mysqli, $requete1);
 
-    if ($prenom !== "" && $nom != "" && $voiture != "" && $place != "" && $matelas != "" && $pseudo != "" && $pass != "") {
-        $requete1 = "INSERT INTO `t_soiree_sre`(`org_pseudo`, `sre_prenom`, `sre_confirmation`, `sre_voiture`, `sre_place`, `sre_amene`, `sre_matelas`)
-                        VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $place . "','" . $amene . "','" . $matelas . "')";
-        $exec_requete = mysqli_query($mysqli, $requete1);
-
-        $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_validation`, `org_pseudo`, `org_password`, `org_statut`)
-                        VALUES ('" . $prenom . "','" . $nom . "','1','" . $pseudo . "','" . $pass . "','1')";
-        $exec_requete2 = mysqli_query($mysqli, $requete2);
-        if ($exec_requete && $exec_requete2) {
-            header('Location: inscription_reussie.php');
+            $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_validation`, `org_pseudo`, `org_password`, `org_statut`)
+                            VALUES ('" . $prenom . "','" . $nom . "','1','" . $pseudo . "','" . $pass . "','1')";
+            $exec_requete2 = mysqli_query($mysqli, $requete2);
+            if ($exec_requete && $exec_requete2) {
+                header('Location: inscription_reussie.php');
+            } else {
+                header('Location: inscription.php'); // utilisateur ou mot de passe incorrect
+            }
         } else {
             header('Location: inscription.php'); // utilisateur ou mot de passe incorrect
         }
-    } else {
-        header('Location: inscription.php'); // utilisateur ou mot de passe incorrect
     }
 } else {
     header('Location: inscription.php'); // utilisateur ou mot de passe incorrect

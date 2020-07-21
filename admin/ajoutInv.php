@@ -92,6 +92,10 @@
                 <input type="number" class="form-control" name='voiture' placeholder="0" min="0" max="1" value="0"/>
             </div>
             <div class="form-group">
+                <label for="vient">Vient de :</label>
+                <input type="text" class="form-control" name='vient' placeholder="Gondor"/>
+            </div>
+            <div class="form-group">
                 <label for="place">Nombre de place:</label>
                 <input type="number" class="form-control" name="place" value="0" min="0" max="10" required>
             </div>

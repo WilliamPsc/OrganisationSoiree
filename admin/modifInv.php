@@ -47,12 +47,12 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="navbar-brand" href="index.php" style="color:red">Accueil</a>
-                        
+
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Déconnexion</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
+                            <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
                         </div>
                     </li>
                 </ul>
@@ -103,6 +103,14 @@
                                                                                                                     echo $inv['sre_voiture'];
                                                                                                                 }
                                                                                                                 ?>" />
+
+                <label>Part de :</label>
+                <input name='vient' class="form-control" type="text" placeholder="Gondor" value="<?php
+                                                                                                    mysqli_data_seek($invite, 0);
+                                                                                                    while ($inv = $invite->fetch_assoc()) {
+                                                                                                        echo $inv['sre_vient'];
+                                                                                                    }
+                                                                                                    ?>" />
 
                 <label>Nombre de place :</label>
                 <input name='placeV' class="form-control" type="number" placeholder="0" min="0" value="<?php

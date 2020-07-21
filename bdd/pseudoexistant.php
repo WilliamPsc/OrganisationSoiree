@@ -63,45 +63,12 @@
 
     <div class="container" style="margin-top:30px;">
         <h2>S'inscrire</h2>
-        <form action="sinscrire.php" method="post">
-            <div class="form-group">
-                <label for="prenom">Prénom:</label>
-                <input type="text" class="form-control" placeholder="Prénom" name="prenom" required>
-            </div>
-            <div class="form-group">
-                <label for="nom">Nom:</label>
-                <input type="text" class="form-control" placeholder="Nom" name="nom" required>
-            </div>
-            <div class="form-group">
-                <label for="voiture">Voiture (0 : non / 1 : oui) :</label>
-                <input type="number" class="form-control" name="voiture" value="0" min="0" max="1" required>
-            </div>
-            <div class="form-group">
-                <label for="vient">Vient de :</label>
-                <input type="text" class="form-control" name='vient' placeholder="Gondor"/>
-            </div>
-            <div class="form-group">
-                <label for="place">Place:</label>
-                <input type="number" class="form-control" name="place" value="0" min="0" max="10" required>
-            </div>
-            <div class="form-group">
-                <label for="amene">Amène:</label>
-                <input type="text" class="form-control" placeholder="Jus de fruits, bonbons, ..." name="amene" value="">
-            </div>
-            <div class="form-group">
-                <label for="matelas">Matelas:</label>
-                <input type="number" class="form-control" name="matelas" value="0" min="0" max="20" required>
-            </div>
-            <div class="form-group">
-                <label for="pseudo">Pseudo:</label>
-                <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" required>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Mot de passe:</label>
-                <input type="password" class="form-control" placeholder="Mot de passe" name="pwd" required>
-            </div>
-            <button type="submit" class="btn btn-primary" id='inscription'>Envoyer</button>
-        </form>
+        Pseudo existant déjà. Veuillez le modifier pour s'inscrire !
+        <br />
+        Redirection dans 5 secondes
+        <?php
+            header("refresh:5;url=sinscrire.php");
+        ?>
     </div>
 
 
