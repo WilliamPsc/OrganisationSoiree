@@ -27,17 +27,8 @@
     } else {
         include "../bdd/connect.php";
         include "../bdd/info.php";
+        include "../template/header.php";
     ?>
-
-        <div class="jumbotron text-center" style="margin-bottom:0">
-            <h1>
-                <?php
-                while ($titre = $information->fetch_assoc()) {
-                    echo $titre['inf_nom'];
-                }
-                ?>
-            </h1>
-        </div>
 
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -159,22 +150,9 @@
             </form>
         </div>
 
-
-        <br /><br />
-        <div class="jumbotron text-center" style="margin-bottom:10px">
-            <p style="text-align:center;">
-                <a href="https://www.pensec.fr/" target="_blank" style="color:black;">William PENSEC</a>
-
-                <br />
-                Master 1 Informatique
-
-                <br />
-                2020
-            </p>
-        </div>
-
     <?php
     }
+    include "../template/footer.php";
     ?>
 </body>
 

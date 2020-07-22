@@ -26,17 +26,8 @@
     } else {
         include "../bdd/connect.php";
         include "../bdd/info.php";
+        include "../template/header.php";
     ?>
-
-        <div class="jumbotron text-center" style="margin-bottom:0">
-            <h1>
-                <?php
-                while ($titre = $information->fetch_assoc()) {
-                    echo $titre['inf_nom'];
-                }
-                ?>
-            </h1>
-        </div>
 
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
