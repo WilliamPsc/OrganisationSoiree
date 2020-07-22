@@ -1,68 +1,49 @@
-<!DOCTYPE html>
-<html lang="fr-fr">
+<?php
+/* PARTIE BDD */
+session_start();
 
-<head>
-    <title>Organisation Soirée</title>
-    <link rel="icon" href="images/icone.png" type="image/png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Soirée, préparation">
-    <meta name="description" content="Site d'organisation de soirée">
-    <meta name="author" content="William PENSEC">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+if (isset($_SESSION['pseudo'])) {
+    header('Location: ../admin/index.php');
+} else {
+    include "connect.php";
+    include "info.php";
+    include "../template/header.php";
 
-</head>
-
-<body>
-    <?php
-    session_start();
-
-    if (isset($_SESSION['pseudo'])) {
-        header('Location: admin/index.php');
-    } else {
-        include "connect.php";
-        include "info.php";
-    }
-    ?>
-
-    <div class="jumbotron text-center" style="margin-bottom:0">
-        <h1>
-            <?php
-            while ($titre = $information->fetch_assoc()) {
-                echo $titre['inf_nom'];
-            }
-            ?>
-        </h1>
-    </div>
-
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="navbar-brand" href="../index.php">Accueil</a>
-
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">Connexion / Inscription</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <a class="dropdown-item" href="connexion.php">Se connecter</a>
-                        <a class="dropdown-item" href="inscription.php">S'inscrire</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    include "../template/menuConnexion.php";
+    include "../template/compte_rebours.php";
+?>
 
     <div class="container" style="margin-top:30px;">
         <h2>Se connecter</h2>
+        <?php
+        if (isset($_GET['connexion'])) {
+            if ($_GET["connexion"] == '1') {
+                echo "<div class=\"alert alert-success\">";
+                echo "<strong>Félicitations!</strong> Vous êtes bien inscrits ! Vous pouvez à présent vous connecter.";
+                echo "</div>";
+            }
+        }
+
+        if (isset($_GET['mdpchg'])) {
+            if ($_GET["mdpchg"] == '-1') {
+                echo "<div class=\"alert alert-warning\">";
+                echo "<strong>Attention!</strong> Mot de passe changé ! Regardez vos mails (spams compris)";
+                echo "</div>";
+            }
+        }
+
+        if (isset($_GET['connect'])) {
+            if ($_GET["connect"] == '-1') {
+                echo "<div class=\"alert alert-warning\">";
+                echo "<strong>Attention!</strong> Aucune concordance pseudo/mot de passe trouvée. Si vous avez oublié votre mot de passe cliquez sur le lien ci dessous.";
+                echo "</div>";
+            }elseif ($_GET["connect"] == '-2') {
+                echo "<div class=\"alert alert-warning\">";
+                echo "<strong>Attention!</strong> Un des champs est vide.";
+                echo "</div>";
+            }
+        }
+        ?>
         <form action="seconnecter.php" method="post">
             <div class="form-group">
                 <label for="pseudo">Pseudo:</label>
@@ -79,6 +60,7 @@
         </form>
     </div>
 
-    <?php
-    include "../template/footer.php"
-    ?>
+<?php
+}
+include "../template/footer.php"
+?>

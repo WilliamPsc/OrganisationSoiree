@@ -24,15 +24,19 @@ if (isset($_POST['mail']) && isset($_POST['pseudo'])) {
             $exec_requete = mysqli_query($mysqli, $requete);
 
             mail($mail, "Nouveau mot de passe", $message, $headers);
-            header('Location: connexion.php');        
+            $_GET['mdpchg'] = '2';
+            header('Location: connexion.php?mdpchg=' . $_GET['mdpchg']);        
         } else {
-            header('Location: ../bdd/mdpOublie.php'); // utilisateur ou mot de passe incorrect
+            $_GET['mdpchg'] = '-1';
+            header('Location: mdpOublie.php?mdpchg=' . $_GET['mdpchg']);
         }
     } else {
-        header('Location: ../bdd/mdpOublie.php'); // utilisateur ou mot de passe incorrect
+        $_GET['mdpchg'] = '-2';
+        header('Location: mdpOublie.php?mdpchg=' . $_GET['mdpchg']);
     }
 } else {
-    header('Location: ../bdd/mdpOublie.php'); // utilisateur ou mot de passe incorrect
+    $_GET['mdpchg'] = '-2';
+    header('Location: mdpOublie.php?mdpchg=' . $_GET['mdpchg']);
 }
 
 

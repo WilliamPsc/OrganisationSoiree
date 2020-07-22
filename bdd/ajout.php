@@ -1,7 +1,8 @@
 <?php
 session_start();
 include "connect.php";
-if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) && isset($_POST['place']) && isset($_POST['amene']) 
+if (
+    isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) && isset($_POST['place']) && isset($_POST['amene'])
     && isset($_POST['matelas']) && isset($_POST['pseudo']) && isset($_POST['pwd'])) {
 
     // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
@@ -16,22 +17,34 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
     $password = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pwd']));
     $pass = hash('sha256', $password);
 
-
-    if ($prenom !== "" && $nom != "" && $voiture != "" && $place != "" && $matelas != "" && $pseudo != "" && $pass != "") {
-        $requete1 = "INSERT INTO `t_soiree_sre`(`org_pseudo`, `sre_prenom`, `sre_confirmation`, `sre_voiture`, `sre_place`, `sre_amene`, `sre_matelas`)
+    if($voiture == 0){
+        $placeV = 0;
+        $vient = "";
+    }
+    $pseudoUsed = "SELECT COUNT(*) AS nbPseudo FROM `t_organisateur_org` WHERE `org_pseudo` = '" . $pseudo . "'";
+    $res = mysqli_query($mysqli, $pseudoUsed);
+    $present  = mysqli_fetch_assoc($res);
+    echo $present['nbPseudo'];
+    if ($present['nbPseudo'] > 0) {
+        $_GET['inscriptionfailed'] = '-1';
+        header('Location: ../admin/ajoutInv.php?inscriptionfailed=' . $_GET['inscriptionfailed']);
+    } else {
+        if ($prenom !== "" && $nom != "" && $voiture != "" && $place != "" && $matelas != "" && $pseudo != "" && $pass != "") {
+            $requete1 = "INSERT INTO `t_soiree_sre`(`org_pseudo`, `sre_prenom`, `sre_confirmation`, `sre_voiture`, `sre_place`, `sre_amene`, `sre_matelas`)
                         VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $place . "','" . $amene . "','" . $matelas . "')";
-        $exec_requete = mysqli_query($mysqli, $requete1);
+            $exec_requete = mysqli_query($mysqli, $requete1);
 
-        $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_validation`, `org_pseudo`, `org_password`, `org_statut`)
+            $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_validation`, `org_pseudo`, `org_password`, `org_statut`)
                         VALUES ('" . $prenom . "','" . $nom . "','1','" . $pseudo . "','" . $pass . "','1')";
-        $exec_requete2 = mysqli_query($mysqli, $requete2);
-        if ($exec_requete && $exec_requete2) {
-            header('Location: ../admin/index.php');
+            $exec_requete2 = mysqli_query($mysqli, $requete2);
+            if ($exec_requete && $exec_requete2) {
+                header('Location: ../admin/index.php');
+            } else {
+                header('Location: ../admin/ajoutInv.php'); // utilisateur ou mot de passe incorrect
+            }
         } else {
             header('Location: ../admin/ajoutInv.php'); // utilisateur ou mot de passe incorrect
         }
-    } else {
-        header('Location: ../admin/ajoutInv.php'); // utilisateur ou mot de passe incorrect
     }
 } else {
     header('Location: ../admin/ajoutInv.php'); // utilisateur ou mot de passe incorrect

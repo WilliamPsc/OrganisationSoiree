@@ -1,150 +1,173 @@
-<!DOCTYPE html>
-<html lang="fr-fr">
-
-<head>
-    <title>Organisation Soirée</title>
-    <link rel="icon" href="images/icone.png" type="image/png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Soirée, préparation">
-    <meta name="description" content="Site d'organisation de soirée">
-    <meta name="author" content="William PENSEC">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-</head>
-
-<body>
-    <?php
-    session_start();
-    $id = $_POST['id'];
-
-    if (empty($_SESSION['pseudo'])) {
-        header('Location: ../bdd/connexion.php');
-    } else {
-        include "../bdd/connect.php";
-        include "../bdd/info.php";
-    ?>
-
-        <div class="jumbotron text-center" style="margin-bottom:0">
-            <h1>
-                <?php
-                while ($titre = $information->fetch_assoc()) {
-                    echo $titre['inf_nom'];
-                }
-                ?>
-            </h1>
-        </div>
-
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="navbar-brand" href="index.php" style="color:red">Accueil</a>
-
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Déconnexion</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown09">
-                            <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <span style="color:white;">
-                <?php
-                if ($_SESSION['pseudo'] !== "") {
-                    $user = $_SESSION['pseudo'];
-                    echo "Bonjour $user";
-                }
-                ?>
-            </span>
-        </nav>
-
-        <!--<div class="container" style="margin-top:30px;">
-            <div class="progress">
-                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                </div>
-            </div>
-        </div>-->
-
-
-        <br /><br />
-        <div class="container">
-            <h2>Modification d'un invité</h2>
-
-            <form action="../bdd/modifInvi.php" method="post">
-                <label>Prénom :</label>
-                <input name='prenom' class="form-control" type="text" placeholder="Prénom" value="<?php
-                                                                                                    mysqli_data_seek($invite, 0);
-                                                                                                    while ($inv = $invite->fetch_assoc()) {
-                                                                                                        echo $inv['sre_prenom'];
-                                                                                                    }
-                                                                                                    ?>" />
-
-                <label>Amène :</label>
-                <input name='amene' class="form-control" type="text" value=" <?php
-                                                                                mysqli_data_seek($invite, 0);
-                                                                                while ($inv = $invite->fetch_assoc()) {
-                                                                                    echo $inv['sre_amene'];
-                                                                                }
-                                                                                ?>" />
-
-                <label>Voiture :</label>
-                <input name='voiture' class="form-control" type="number" placeholder="0" min="0" max="1" value="<?php
-                                                                                                                mysqli_data_seek($invite, 0);
-                                                                                                                while ($inv = $invite->fetch_assoc()) {
-                                                                                                                    echo $inv['sre_voiture'];
-                                                                                                                }
-                                                                                                                ?>" />
-
-                <label>Part de :</label>
-                <input name='vient' class="form-control" type="text" placeholder="Gondor" value="<?php
-                                                                                                    mysqli_data_seek($invite, 0);
-                                                                                                    while ($inv = $invite->fetch_assoc()) {
-                                                                                                        echo $inv['sre_vient'];
-                                                                                                    }
-                                                                                                    ?>" />
-
-                <label>Nombre de place :</label>
-                <input name='placeV' class="form-control" type="number" placeholder="0" min="0" value="<?php
-                                                                                                        mysqli_data_seek($invite, 0);
-                                                                                                        while ($inv = $invite->fetch_assoc()) {
-                                                                                                            echo $inv['sre_place'];
-                                                                                                        }
-                                                                                                        ?>" />
-
-                <label>Confirmation :</label>
-                <input name='confirmation' class=" form-control" type="number" placeholder="0" min="0" max="1" value="<?php
-                                                                                                                        mysqli_data_seek($invite, 0);
-                                                                                                                        while ($inv = $invite->fetch_assoc()) {
-                                                                                                                            echo $inv['sre_confirmation'];
-                                                                                                                        }
-                                                                                                                        ?>" />
-
-                <label>Nombre de place de matelas :</label>
-                <input name='placeM' class="form-control" type="number" placeholder="0" min="0" value="<?php
-                                                                                                        mysqli_data_seek($invite, 0);
-                                                                                                        while ($inv = $invite->fetch_assoc()) {
-                                                                                                            echo $inv['sre_matelas'];
-                                                                                                        }
-                                                                                                        ?>" />
-
-                <br /><br />
-                <input type="hidden" name="id" value="<?php echo $id ?>" />
-                <input type="submit" name="submit" class="btn btn-primary btn-lg" value="Modifier" />
-            </form>
-        </div>
-
-
-
-        <?php
+<?php
+/* PARTIE ADMIN */
+session_start();
+$id = $_POST["id"];
+if (empty($_SESSION['pseudo'])) {
+    header('Location: ../bdd/connexion.php');
+} else {
+    include "../bdd/connect.php";
+    include "../bdd/info.php";
+    include "../template/header.php";
+    $test = $mysqli->query("SELECT SUM(org_statut) FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
+    $val = $test->fetch_assoc();
+    if ($val['SUM(org_statut)'] == 1) {
+        header('Location: ../invite/index.php');
     }
-    include "../template/footer.php";
-    ?>
+    include "../template/menuAdmin.php";
+    include "../template/compte_rebours.php";
+?>
+    <script type="text/javascript">
+        function getComboA(selectObject) {
+            console.log(selectObject);
+            if (selectObject == 1) {
+                document.getElementById("voiture11").style.display = "block";
+                document.getElementById("voiture12").style.display = "block";
+                document.getElementById("voiture21").style.display = "block";
+                document.getElementById("voiture22").style.display = "block";
+            } else if (selectObject == 0) {
+                document.getElementById("voiture11").style.display = "none";
+                document.getElementById("voiture12").style.display = "none";
+                document.getElementById("voiture21").style.display = "none";
+                document.getElementById("voiture22").style.display = "none";
+            }
+        }
+    </script>
+
+    <div class="container" style="margin-top:30px;">
+        <h2>Modification d'un invité</h2>
+
+        <form action="../bdd/modifInvi.php" method="post">
+            <label for="statut">Statut :</label>
+            <select class="form-control" name="statut" required>
+                <option value="<?php
+                                mysqli_data_seek($invite1, 0);
+                                while ($inv = $invite1->fetch_assoc()) {
+                                    echo $inv['org_statut'];
+                                }
+                                ?>" selected hidden><?php
+                                                    mysqli_data_seek($invite1, 0);
+                                                    while ($inv = $invite1->fetch_assoc()) {
+                                                        if ($inv['org_statut'] == 1) {
+                                                            echo "Invité";
+                                                        } elseif ($inv['org_statut'] == 0) {
+                                                            echo "Administrateur";
+                                                        }
+                                                    }
+                                                    ?></option>
+                <option value="1">Invité</option>
+                <option value="0">Administrateur</option>
+            </select>
+
+            <label for="prenom">Prénom :</label>
+            <input name='prenom' class="form-control" type="text" placeholder="Prénom" value="<?php
+                                                                                                mysqli_data_seek($invite, 0);
+                                                                                                while ($inv = $invite->fetch_assoc()) {
+                                                                                                    echo $inv['sre_prenom'];
+                                                                                                }
+                                                                                                ?>" />
+
+            <label for="nom">Nom :</label>
+            <input name='nom' class="form-control" type="text" placeholder="Nom" value="<?php
+                                                                                        mysqli_data_seek($invite3, 0);
+                                                                                        while ($inv = $invite3->fetch_assoc()) {
+                                                                                            echo $inv['org_nom'];
+                                                                                        }
+                                                                                        ?>" />
+
+            <label for="pseudo">Pseudo :</label>
+            <input name='pseudo' class="form-control" type="text" value="<?php
+                                                                            mysqli_data_seek($invite3, 0);
+                                                                            while ($inv = $invite3->fetch_assoc()) {
+                                                                                echo $inv['org_pseudo'];
+                                                                            }
+                                                                            ?>" />
+
+            <label for="amene">Qu'amènes tu en nourriture ?</label>
+            <input name='amene' class="form-control" type="text" value=" <?php
+                                                                            mysqli_data_seek($invite, 0);
+                                                                            while ($inv = $invite->fetch_assoc()) {
+                                                                                echo $inv['sre_amene'];
+                                                                            }
+                                                                            ?>" />
+
+            <label for="voiture">Viens tu avec ta voiture ?</label>
+            <select class="form-control" name="voiture" onchange="getComboA(this.options[this.selectedIndex].value)" required>
+                <option value="<?php
+                                mysqli_data_seek($invite, 0);
+                                while ($inv = $invite->fetch_assoc()) {
+                                    echo $inv['sre_voiture'];
+                                }
+                                ?>" selected hidden><?php
+                                                    mysqli_data_seek($invite, 0);
+                                                    while ($inv = $invite->fetch_assoc()) {
+                                                        $voiture = $inv['sre_voiture'];
+                                                        if ($inv['sre_voiture'] == 1) {
+                                                            echo "Oui";
+                                                        } elseif ($inv['sre_voiture'] == 0) {
+                                                            echo "Non";
+                                                        }
+                                                    }
+                                                    ?></option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select>
+
+            <label for="vient" id="voiture12">Part de :</label>
+            <input name='vient' class="form-control" id="voiture11" type="text" placeholder="Gondor" value="<?php
+                                                                                                            mysqli_data_seek($invite, 0);
+                                                                                                            while ($inv = $invite->fetch_assoc()) {
+                                                                                                                echo $inv['sre_vient'];
+                                                                                                            }
+                                                                                                            ?>" />
+
+            <label for="placeV" id="voiture22">Nombre de place disponible dans la voiture:</label>
+            <input name='placeV' class="form-control" id="voiture21" type="number" placeholder="0" min="0" value="<?php
+                                                                                                                    mysqli_data_seek($invite, 0);
+                                                                                                                    while ($inv = $invite->fetch_assoc()) {
+                                                                                                                        echo $inv['sre_place'];
+                                                                                                                    }
+                                                                                                                    ?>" />
+
+            <label for="confirmation">Confirmation :</label>
+            <select class="form-control" name="confirmation" required>
+                <option value="<?php
+                                mysqli_data_seek($invite, 0);
+                                while ($inv = $invite->fetch_assoc()) {
+                                    echo $inv['sre_confirmation'];
+                                }
+                                ?>" selected hidden><?php
+                                                    mysqli_data_seek($invite, 0);
+                                                    while ($inv = $invite->fetch_assoc()) {
+                                                        if ($inv['sre_confirmation'] == 1) {
+                                                            echo "Oui";
+                                                        } elseif ($inv['sre_confirmation'] == 0) {
+                                                            echo "Non";
+                                                        }
+                                                    }
+                                                    ?></option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select>
+
+            <label for="placeM">Nombre de place de matelas :</label>
+            <input name='placeM' class="form-control" type="number" placeholder="0" min="0" value="<?php
+                                                                                                    mysqli_data_seek($invite, 0);
+                                                                                                    while ($inv = $invite->fetch_assoc()) {
+                                                                                                        echo $inv['sre_matelas'];
+                                                                                                    }
+                                                                                                    ?>" />
+            <br /><br />
+            <input type="hidden" name="id" value="<?php echo $id ?>" />
+            <input type="submit" name="submit" class="btn btn-primary btn-lg" value="Modifier" />
+        </form>
+        <div>
+            <script type="text/javascript">
+                getComboA(<?php echo $voiture ?>)
+            </script>
+        </div>
+    </div>
+
+<?php
+}
+include "../template/footer.php";
+?>

@@ -18,20 +18,21 @@ if (isset($_POST['pseudo']) && isset($_POST['pwd'])) {
             $_SESSION['pseudo'] = $username;
             $test = $mysqli->query("SELECT SUM(org_statut) FROM t_organisateur_org WHERE org_pseudo = '" . $username . "';");
             $val = $test->fetch_assoc();
-            //echo $val['SUM(org_statut)'];
-            if($val['SUM(org_statut)'] == 1){
+            if ($val['SUM(org_statut)'] == 1) {
                 header('Location: ../invite/index.php');
             }
-            if($val['SUM(org_statut)'] == 0){
+            if ($val['SUM(org_statut)'] == 0) {
                 header('Location: ../admin/index.php');
             }
-            
         } else {
-            header('Location: ../bdd/connexion.php'); // utilisateur ou mot de passe incorrect
+            $_GET['connect'] = '-1';
+            header('Location: connexion.php?connect=' . $_GET['connect']);
         }
     } else {
-        header('Location: ../bdd/connexion.php'); // utilisateur ou mot de passe incorrect
+        $_GET['connect'] = '-2';
+        header('Location: connexion.php?connect=' . $_GET['connect']);
     }
 } else {
-    header('Location: ../bdd/connexion.php'); // utilisateur ou mot de passe incorrect
+    $_GET['connect'] = '-2';
+    header('Location: connexion.php?connect=' . $_GET['connect']);
 }

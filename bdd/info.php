@@ -15,7 +15,9 @@
 
     /* Récupération des infos d'une personne */
     $invite = $mysqli->query("SELECT * FROM t_soiree_sre WHERE sre_id = '" . $id . "'");
+    $invite1 = $mysqli->query("SELECT * FROM t_organisateur_org WHERE org_id = '" . $id . "'");
     $invite2 = $mysqli->query("SELECT * FROM t_soiree_sre WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
-    $invite3 = $mysqli->query("SELECT * FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
+    $invite3 = $mysqli->query("SELECT * FROM t_organisateur_org WHERE org_id = '" . $id . "';");
+    $invite4 = $mysqli->query("SELECT * FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
    
 ?>

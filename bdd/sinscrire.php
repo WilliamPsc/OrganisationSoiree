@@ -1,8 +1,6 @@
 <?php
 include "connect.php";
-if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) && isset($_POST['place']) && isset($_POST['amene']) 
-    && isset($_POST['matelas']) && isset($_POST['pseudo']) && isset($_POST['pwd'])) {
-
+if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) && isset($_POST['pseudo']) && isset($_POST['pwd'])) {
     // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
     // pour éliminer toute attaque de type injection SQL et XSS
     $prenom = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['prenom']));
@@ -19,10 +17,11 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
     $pseudoUsed = "SELECT COUNT(*) AS nbPseudo FROM `t_organisateur_org` WHERE `org_pseudo` = '" . $pseudo . "'";
     $res = mysqli_query($mysqli, $pseudoUsed);
     $present  = mysqli_fetch_assoc($res);
-    if($present['nbPseudo'] != 0){
-        header('Location : pseudoexistant.php');
+    if ($present['nbPseudo'] != 0) {
+        $_GET['inscriptionfailed'] = '-1';
+        header('Location: inscription.php?inscriptionfailed=' . $_GET['inscriptionfailed']);
     } else {
-        if ($prenom !== "" && $nom != "" && $voiture != "" && $place != "" && $matelas != "" && $pseudo != "" && $pass != "") {
+        if ($prenom !== "" && $nom != "" && $voiture != "" && $pseudo != "" && $pass != "") {
             $requete1 = "INSERT INTO `t_soiree_sre`(`org_pseudo`, `sre_prenom`, `sre_confirmation`, `sre_voiture`, `sre_vient`, `sre_place`, `sre_amene`, `sre_matelas`)
                             VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $vient . "','" . $place . "','" . $amene . "','" . $matelas . "')";
             $exec_requete = mysqli_query($mysqli, $requete1);
@@ -31,14 +30,17 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
                             VALUES ('" . $prenom . "','" . $nom . "','1','" . $pseudo . "','" . $pass . "','1')";
             $exec_requete2 = mysqli_query($mysqli, $requete2);
             if ($exec_requete && $exec_requete2) {
-                header('Location: inscription_reussie.php');
+                header('Location: connexion.php?connexion=1');
             } else {
-                header('Location: inscription.php'); // utilisateur ou mot de passe incorrect
+                $_GET['inscriptionfailed'] = '-2';
+                header('Location: inscription.php?inscriptionfailed=' . $_GET['inscriptionfailed']);
             }
         } else {
-            header('Location: inscription.php'); // utilisateur ou mot de passe incorrect
+            $_GET['inscriptionfailed'] = '-3';
+            header('Location: inscription.php?inscriptionfailed=' . $_GET['inscriptionfailed']);
         }
     }
 } else {
-    header('Location: inscription.php'); // utilisateur ou mot de passe incorrect
+    $_GET['inscriptionfailed'] = '-3';
+    header('Location: inscription.php?inscriptionfailed=' . $_GET['inscriptionfailed']);
 }
