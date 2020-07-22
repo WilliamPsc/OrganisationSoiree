@@ -26,6 +26,7 @@
     } else {
         include "connect.php";
         include "info.php";
+        //include "../template/header.php";
     }
     ?>
 
@@ -62,23 +63,23 @@
 
 
     <div class="container" style="margin-top:30px;">
-        <h2>Se connecter</h2>
-        <form action="seconnecter.php" method="post">
+        <h2>Changer mon mot de passe</h2>
+        <p>
+            Veuillez saisir votre adresse email et votre pseudo afin que l'on puisse réinitialiser votre mot de passe et vous communiquer le nouveau.
+        </p>
+        <form action="chgmdp.php" method="post">
+            <div class="form-group">
+                <label for="mail">Mail:</label>
+                <input type="email" class="form-control" placeholder="mail@exemple.fr" name="mail" required>
+            </div>
             <div class="form-group">
                 <label for="pseudo">Pseudo:</label>
                 <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" required>
             </div>
-            <div class="form-group">
-                <label for="pwd">Mot de passe:</label>
-                <input type="password" class="form-control" placeholder="Mot de passe" name="pwd" required>
-            </div>
-            <button type="submit" class="btn btn-primary" id='connexion'>Connexion</button>
-        </form>
-        <form action="mdpOublie.php" method="post">
-            <button type="submit" class="btn btn-link">Mot de passe oublié</button>
+            <button type="submit" class="btn btn-primary" id='envoi'>Envoyer</button>
         </form>
     </div>
 
     <?php
-    include "../template/footer.php"
+    include "../template/footer.php";
     ?>

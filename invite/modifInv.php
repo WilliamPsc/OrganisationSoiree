@@ -67,13 +67,6 @@
             </span>
         </nav>
 
-        <!--<div class="container" style="margin-top:30px;">
-            <div class="progress">
-                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                </div>
-            </div>
-        </div>-->
-
 
         <br /><br />
         <div class="container">
@@ -87,6 +80,14 @@
                                                                                                         echo $inv['sre_prenom'];
                                                                                                     }
                                                                                                     ?>" />
+
+                <label>Nom :</label>
+                <input name='nom' class="form-control" type="text" placeholder="Nom" value="<?php
+                                                                                            mysqli_data_seek($invite3, 0);
+                                                                                            while ($inv = $invite3->fetch_assoc()) {
+                                                                                                echo $inv['org_nom'];
+                                                                                            }
+                                                                                            ?>" />
 
                 <label>Amène :</label>
                 <input name='amene' class="form-control" type="text" value=" <?php
@@ -106,11 +107,11 @@
 
                 <label>Part de :</label>
                 <input name='vient' class="form-control" type="text" placeholder="Gondor" value="<?php
-                                                                                                                mysqli_data_seek($invite, 0);
-                                                                                                                while ($inv = $invite->fetch_assoc()) {
-                                                                                                                    echo $inv['sre_vient'];
-                                                                                                                }
-                                                                                                                ?>" />
+                                                                                                    mysqli_data_seek($invite, 0);
+                                                                                                    while ($inv = $invite->fetch_assoc()) {
+                                                                                                        echo $inv['sre_vient'];
+                                                                                                    }
+                                                                                                    ?>" />
 
                 <label>Nombre de place :</label>
                 <input name='placeV' class="form-control" type="number" placeholder="0" min="0" value="<?php
@@ -135,6 +136,22 @@
                                                                                                             echo $inv['sre_matelas'];
                                                                                                         }
                                                                                                         ?>" />
+
+                <label>Pseudo :</label>
+                <input name='pseudo' class="form-control" type="text" value="<?php
+                                                                                mysqli_data_seek($invite3, 0);
+                                                                                while ($inv = $invite3->fetch_assoc()) {
+                                                                                    echo $inv['org_pseudo'];
+                                                                                }
+                                                                                ?>" />
+
+                <label>Mot de passe :</label>
+                <input name='pwd' class="form-control" type="password" value="<?php
+                                                                                mysqli_data_seek($invite3, 0);
+                                                                                while ($inv = $invite3->fetch_assoc()) {
+                                                                                    echo $inv['org_password'];
+                                                                                }
+                                                                                ?>" />
 
                 <br /><br />
                 <input type="hidden" name="id" value="<?php echo $id ?>" />

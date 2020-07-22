@@ -6,6 +6,7 @@
     $voiture = $mysqli->query("SELECT COUNT(sre_id) FROM t_soiree_sre WHERE sre_voiture ='1'");
     $place = $mysqli->query("SELECT SUM(sre_place) FROM t_soiree_sre");
     $matelas = $mysqli->query("SELECT SUM(sre_matelas) FROM t_soiree_sre");
+    $infAmene = $mysqli->query("SELECT inf_amene FROM t_information_inf");
 
 
     /* Liste des personnes confirmées */

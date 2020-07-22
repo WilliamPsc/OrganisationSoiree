@@ -498,10 +498,21 @@
                         <tr>
                             <td>A amener :</td>
                             <td>
+                                <?php
+                                while ($amene = $infAmene->fetch_assoc()) {
+                                    $info = $amene['inf_amene'];
+                                };
+                                ?>
                                 <ul>
-                                    <li>Matelas</li>
-                                    <li>Sac de couchage</li>
-                                    <li>Maillot de bain et serviette (pour les courageux)</li>
+                                    <?php
+                                    $delimiters = ";";
+                                    $res = explode($delimiters, $info);
+                                    foreach ($res as $ligne) {
+                                        echo "<li>";
+                                        echo $ligne;
+                                        echo "</li>";
+                                    }
+                                    ?>
                                 </ul>
                             </td>
                     </tbody>
@@ -581,22 +592,7 @@
         </div>
 
 
-        <br /><br />
-        <div class="jumbotron text-center" style="margin-bottom:10px">
-            <p style="text-align:center;">
-                <a href="https://www.pensec.fr/" target="_blank" style="color:black;">William PENSEC</a>
-
-                <br />
-                Master 1 Informatique
-
-                <br />
-                2020
-            </p>
-        </div>
-
-    <?php
+        <?php
     }
+    include "../template/footer.php";
     ?>
-</body>
-
-</html>

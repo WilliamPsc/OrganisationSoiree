@@ -46,12 +46,12 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="navbar-brand" href="index.php" style="color:red">Accueil</a>
-                        
+
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Déconnexion</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
+                            <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
                         </div>
                     </li>
                 </ul>
@@ -65,13 +65,6 @@
                 ?>
             </span>
         </nav>
-
-    <!--<div class="container" style="margin-top:30px;">
-        <div class="progress">
-            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-            </div>
-        </div>
-    </div>-->
 
 
         <br /><br />
@@ -111,28 +104,23 @@
                                                                                                 }
                                                                                                 ?>" />
 
+                <label>Affaires à amener :</label>
+                <input name='affaires' class="form-control" type="text" placeholder="Affaires" value="<?php
+                                                                                                mysqli_data_seek($infAmene, 0);
+                                                                                                while ($nom = $infAmene->fetch_assoc()) {
+                                                                                                    echo $nom['inf_amene'];
+                                                                                                }
+                                                                                                ?>" />
+
                 <br /><br />
                 <input type="submit" name="submit" class="btn btn-primary btn-lg" value="Modifier" />
             </form>
         </div>
 
 
-        <br /><br />
-        <div class="jumbotron text-center" style="margin-bottom:10px">
-            <p style="text-align:center;">
-                <a href="https://www.pensec.fr/" target="_blank" style="color:black;">William PENSEC</a>
 
-                <br />
-                Master 1 Informatique
-
-                <br />
-                2020
-            </p>
-        </div>
 
     <?php
     }
+    include "../template/footer.php";
     ?>
-</body>
-
-</html>

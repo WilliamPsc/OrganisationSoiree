@@ -9,22 +9,17 @@ if (isset($_POST['dateD']) && isset($_POST['dateF']) && isset($_POST['adresse'])
     $dateF = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['dateF']));
     $adresse = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['adresse']));
     $nom = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['nom']));
+    $affaires = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['affaires']));
 
 
     if ($dateD !== "" && $dateF !== "") {
-        $requete = "UPDATE `t_information_inf` SET `inf_dateD`='" . $dateD . "',`inf_dateF`='" . $dateF . "',`inf_adresse`='" . $adresse . "',`inf_nom`='" . $nom . "' WHERE `inf_id` = '0';";
+        $requete = "UPDATE `t_information_inf` SET 
+            `inf_dateD`='" . $dateD . "',`inf_dateF`='" . $dateF . "',`inf_adresse`='" . $adresse . "',`inf_nom`='" . $nom . "',`inf_amene`='" . $affaires . "' WHERE `inf_id` = '0';";
         $exec_requete = mysqli_query($mysqli, $requete);
         if ($exec_requete) {
             header('Location: ../admin/index.php');
         } else {
-            echo "Requete echouée";
-            echo $dateD;
-            echo $dateF;
-            echo $adresse;
-            echo $nom;
-            echo $requete;
-            echo $exec_requete;
-            //header('Location: ../admin/modifInfo.php'); // utilisateur ou mot de passe incorrect
+            header('Location: ../admin/modifInfo.php'); // utilisateur ou mot de passe incorrect
         }
     } else {
         header('Location: ../admin/modifInfo.php'); // utilisateur ou mot de passe incorrect

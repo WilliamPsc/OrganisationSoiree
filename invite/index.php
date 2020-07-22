@@ -498,10 +498,21 @@
                         <tr>
                             <td>A amener :</td>
                             <td>
+                                <?php
+                                while ($amene = $infAmene->fetch_assoc()) {
+                                    $info = $amene['inf_amene'];
+                                };
+                                ?>
                                 <ul>
-                                    <li>Matelas</li>
-                                    <li>Sac de couchage</li>
-                                    <li>Maillot de bain et serviette (pour les courageux)</li>
+                                    <?php
+                                    $delimiters = ";";
+                                    $res = explode($delimiters, $info);
+                                    foreach ($res as $ligne) {
+                                        echo "<li>";
+                                        echo $ligne;
+                                        echo "</li>";
+                                    }
+                                    ?>
                                 </ul>
                             </td>
                     </tbody>

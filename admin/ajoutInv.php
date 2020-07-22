@@ -46,12 +46,12 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="navbar-brand" href="index.php" style="color:red">Accueil</a>
-                        
+
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Déconnexion</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
+                            <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
                         </div>
                     </li>
                 </ul>
@@ -79,63 +79,47 @@
             <h2>Ajout d'un invité</h2>
 
             <form action="../bdd/ajout.php" method="post">
-            <div class="form-group">
-                <label for="prenom">Prénom:</label>
-                <input type="text" class="form-control" placeholder="Prénom" name="prenom" required>
-            </div>
-            <div class="form-group">
-                <label for="nom">Nom:</label>
-                <input type="text" class="form-control" placeholder="Nom" name="nom" required>
-            </div>
-            <div class="form-group">
-                <label for="voiture">Voiture (0 : non / 1 : oui) :</label>
-                <input type="number" class="form-control" name='voiture' placeholder="0" min="0" max="1" value="0"/>
-            </div>
-            <div class="form-group">
-                <label for="vient">Vient de :</label>
-                <input type="text" class="form-control" name='vient' placeholder="Gondor"/>
-            </div>
-            <div class="form-group">
-                <label for="place">Nombre de place:</label>
-                <input type="number" class="form-control" name="place" value="0" min="0" max="10" required>
-            </div>
-            <div class="form-group">
-                <label for="amene">Amène:</label>
-                <input type="text" class="form-control" placeholder="Jus de fruits, bonbons, ..." name="amene" value="">
-            </div>
-            <div class="form-group">
-                <label for="matelas">Nombre de place de matelas:</label>
-                <input type="number" class="form-control" name="matelas" value="0" min="0" max="20" required>
-            </div>
-            <div class="form-group">
-                <label for="pseudo">Pseudo:</label>
-                <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" required>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Mot de passe:</label>
-                <input type="password" class="form-control" placeholder="Mot de passe" name="pwd" required>
-            </div>
-            <button type="submit" class="btn btn-primary" id='inscription'>Ajouter</button>
-        </form>
-        </div>
-
-
-        <br /><br />
-        <div class="jumbotron text-center" style="margin-bottom:10px">
-            <p style="text-align:center;">
-                <a href="https://www.pensec.fr/" target="_blank" style="color:black;">William PENSEC</a>
-
-                <br />
-                Master 1 Informatique
-
-                <br />
-                2020
-            </p>
+                <div class="form-group">
+                    <label for="prenom">Prénom:</label>
+                    <input type="text" class="form-control" placeholder="Prénom" name="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input type="text" class="form-control" placeholder="Nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="voiture">Voiture (0 : non / 1 : oui) :</label>
+                    <input type="number" class="form-control" name='voiture' placeholder="0" min="0" max="1" value="0" />
+                </div>
+                <div class="form-group">
+                    <label for="vient">Vient de :</label>
+                    <input type="text" class="form-control" name='vient' placeholder="Gondor" />
+                </div>
+                <div class="form-group">
+                    <label for="place">Nombre de place:</label>
+                    <input type="number" class="form-control" name="place" value="0" min="0" max="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="amene">Amène:</label>
+                    <input type="text" class="form-control" placeholder="Jus de fruits, bonbons, ..." name="amene" value="">
+                </div>
+                <div class="form-group">
+                    <label for="matelas">Nombre de place de matelas:</label>
+                    <input type="number" class="form-control" name="matelas" value="0" min="0" max="20" required>
+                </div>
+                <div class="form-group">
+                    <label for="pseudo">Pseudo:</label>
+                    <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Mot de passe:</label>
+                    <input type="password" class="form-control" placeholder="Mot de passe" name="pwd" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id='inscription'>Ajouter</button>
+            </form>
         </div>
 
     <?php
     }
+    include "../template/footer.php"
     ?>
-</body>
-
-</html>
