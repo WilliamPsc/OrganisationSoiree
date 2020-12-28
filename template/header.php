@@ -21,7 +21,7 @@
 
     <div class="jumbotron text-center" id="titre" style="margin-bottom:0">
         <?php
-        $_SESSION['baseURL'] = "https:/soiree.pensec.fr/";
+        $_SESSION['baseURL'] = "http://soiree.pensec.fr/";
         while ($titre = $information->fetch_assoc()) {
             $value = $titre['inf_nom'];
         }
