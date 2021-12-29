@@ -7,7 +7,6 @@ if (isset($_POST['prenom'])) {
     // pour éliminer toute attaque de type injection SQL et XSS
     $prenom = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['prenom']));
     $nom = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['nom']));
-    $amene = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['amene']));
     $voiture = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['voiture']));
     $placeV = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['placeV']));
     $confirmation = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['confirmation']));
@@ -16,6 +15,7 @@ if (isset($_POST['prenom'])) {
     $vient = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['vient']));
     $pseudo = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pseudo']));
     $statut = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['statut']));
+    $mail = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['mail']));
 
     if($voiture == 0){
         $placeV = 0;
@@ -24,11 +24,11 @@ if (isset($_POST['prenom'])) {
 
     $requete = "UPDATE `t_soiree_sre` SET 
         `org_pseudo`='" . $pseudo . "',`sre_prenom`='" . $prenom . "',`sre_confirmation`='" . $confirmation . "', `sre_voiture`='" . $voiture . "',`sre_vient`='" . $vient . "',
-            `sre_place`='" . $placeV . "',`sre_amene`='" . $amene . "',`sre_matelas`='" . $placeM . "' WHERE `sre_id`='" . $id . "'";
+            `sre_place`='" . $placeV . "',`sre_matelas`='" . $placeM . "' WHERE `sre_id`='" . $id . "'";
     $exec_requete = mysqli_query($mysqli, $requete);
     
     $requete = "UPDATE `t_organisateur_org` SET 
-        `org_prenom`='" . $prenom . "',`org_nom`='" . $nom . "',`org_pseudo`='" . $pseudo . "',`org_statut`='" . $statut . "' WHERE `org_id` = ' " . $id . " '";
+        `org_prenom`='" . $prenom . "',`org_nom`='" . $nom . "',`org_pseudo`='" . $pseudo . "',`org_statut`='" . $statut . "', `org_mail`='" . $mail . "' WHERE `org_id` = ' " . $id . " '";
     $exec_requete2 = mysqli_query($mysqli, $requete);
 
     if ($exec_requete && $exec_requete2) {

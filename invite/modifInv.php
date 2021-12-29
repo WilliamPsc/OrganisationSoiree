@@ -1,19 +1,23 @@
 <?php
 /* PARTIE INVITE */
 session_start();
-$id = $_POST['id'];
 if (empty($_SESSION['pseudo'])) {
     header('Location: ../bdd/connexion.php');
 } else {
     include "../bdd/connect.php";
+
+    $test = $mysqli->query("SELECT org_id FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
+    $val = $test->fetch_assoc();
+    $id = $val['org_id'];
+
     include "../bdd/info.php";
     include "../template/header.php";
-    $test = $mysqli->query("SELECT SUM(org_statut) FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
-    $val = $test->fetch_assoc();
-    if ($val['SUM(org_statut)'] == 0) {
+    $test = $mysqli->query("SELECT org_statut FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
+    $valStatut = $test->fetch_assoc();
+    if ($valStatut['org_statut'] == 0) {
         header('Location: ../admin/index.php');
     }
-    include "../template/menuAdmin.php";
+    include "../template/menuInvite.php";
     include "../template/compte_rebours.php";
 ?>
     <script type="text/javascript">
@@ -38,8 +42,8 @@ if (empty($_SESSION['pseudo'])) {
 
         <form action="../bdd/modifInvi.php" method="post">
             <input name='statut' class="form-control" type="hidden" value="<?php
-                                                                            mysqli_data_seek($invite1, 0);
-                                                                            while ($inv1 = $invite1->fetch_assoc()) {
+                                                                            mysqli_data_seek($invite2, 0);
+                                                                            while ($inv1 = $invite2->fetch_assoc()) {
                                                                                 echo $inv1['org_statut'];
                                                                             }
                                                                             ?>" />
@@ -66,14 +70,22 @@ if (empty($_SESSION['pseudo'])) {
                                                                                 echo $inv['org_pseudo'];
                                                                             }
                                                                             ?>" />
-
-            <label for="amene">Qu'amènes tu en nourriture ?</label>
-            <input name='amene' class="form-control" type="text" value=" <?php
-                                                                            mysqli_data_seek($invite, 0);
-                                                                            while ($inv = $invite->fetch_assoc()) {
-                                                                                echo $inv['sre_amene'];
+            
+            <label for="mail">Email de récupération :</label>
+            <input name='mail' class="form-control" type="email" value="<?php
+                                                                            mysqli_data_seek($invite3, 0);
+                                                                            while ($inv = $invite3->fetch_assoc()) {
+                                                                                echo $inv['org_mail'];
                                                                             }
                                                                             ?>" />
+<!-- 
+            <label for="amene">Qu'amènes tu en nourriture ?</label>
+            <input name='amene' class="form-control" type="text" value=" <?php
+                                                                            // mysqli_data_seek($invite, 0);
+                                                                            // while ($inv = $invite->fetch_assoc()) {
+                                                                            //     echo $inv['sre_amene'];
+                                                                            // }
+                                                                            ?>" /> -->
 
             <label for="voiture">Viens tu avec ta voiture ?</label>
             <select class="form-control" name="voiture" onchange="getComboA(this.options[this.selectedIndex].value)" required>
@@ -142,6 +154,7 @@ if (empty($_SESSION['pseudo'])) {
                                                                                                     }
                                                                                                     ?>" />
             <br /><br />
+            <input type="hidden" name="statut" value="<?php echo $valStatut['org_statut']; ?>" />
             <input type="hidden" name="id" value="<?php echo $id ?>" />
             <input type="submit" name="submit" class="btn btn-primary btn-lg" value="Modifier" />
         </form>

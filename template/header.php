@@ -3,7 +3,6 @@
 
 <head>
     <title>Organisation Soirée</title>
-    <link rel="icon" href="images/icone.png" type="image/png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Soirée, préparation">
@@ -15,13 +14,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+    <link rel="manifest" href="../images/site.webmanifest">
+
 </head>
 
 <body>
 
     <div class="jumbotron text-center" id="titre" style="margin-bottom:0">
         <?php
-        $_SESSION['baseURL'] = "http://soiree.pensec.fr/";
         while ($titre = $information->fetch_assoc()) {
             $value = $titre['inf_nom'];
         }

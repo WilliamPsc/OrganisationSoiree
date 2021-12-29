@@ -7,12 +7,16 @@
         Master 2 Informatique
 
         <br />
-        2020
+        2019 - 2021
 
         <br />
-        Version 2.0
+        Version 3.0
     </p>
 </div>
 </body>
+
+<?php
+    mysqli_close($mysqli);
+?>
 
 </html>

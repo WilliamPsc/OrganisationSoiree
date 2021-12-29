@@ -47,7 +47,7 @@
                                 <td>
                                     <?php
                                     if ($data["sre_voiture"] == 1) {
-                                        echo $data["sre_voiture"];
+                                        echo "Oui";
                                     }
                                     ?>
                                 </td>

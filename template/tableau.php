@@ -2,7 +2,7 @@
         <h2>Informations pratiques</h2>
         <?php
             if(isset($_SESSION['pseudo'])){
-                if($val['SUM(org_statut)'] == 0){
+                if($val['org_statut'] == 0){
                     echo "<input type=\"button\" class=\"btn btn-info btn-block\" style=\"text-align: center;\" onclick=\"window.location.href='modifInfo.php'\" value=\"Modifier\"><br />";
                 }
             }

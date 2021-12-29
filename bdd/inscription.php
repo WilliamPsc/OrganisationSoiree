@@ -45,6 +45,10 @@
                     <input type="text" class="form-control" placeholder="Nom" name="nom" required>
                 </div>
                 <div class="form-group">
+                    <label for="mail">Mail de récupération :</label>
+                    <input type="email" class="form-control" placeholder="exemple@exemple.fr" name="mail" required>
+                </div>
+                <div class="form-group">
                     <label for="pseudo">Pseudo :</label>
                     <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" required>
                 </div>

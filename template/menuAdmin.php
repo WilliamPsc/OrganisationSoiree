@@ -5,17 +5,20 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="navbar-brand" href="index.php" style="color:red">Accueil</a>
+                <a class="navbar-brand" href="<?php echo $GLOBALS['baseURL'] . "admin/index.php" ?>" style="color:red">Accueil</a>
 
             </li>
-            <!--<li class="nav-item">
-                <a class="navbar-brand" href="repas.php">Menu</a>
-
-            </li>-->
+            <?php
+                if ($val['SUM(org_statut)'] == 0) {
+                    echo "<li class=\"nav-item\">";
+                    echo "<a class=\"navbar-brand\" href=" . $GLOBALS['baseURL'] . "test/test.php>Test</a>";
+                    echo "</li>";
+                }
+            ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Déconnexion</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown09">
-                    <a class="dropdown-item" href="../bdd/deconnexion.php">Déconnexion</a>
+                    <a class="dropdown-item" href="<?php echo $GLOBALS['baseURL'] . "bdd/deconnexion.php" ?>">Déconnexion</a>
                 </div>
             </li>
         </ul>

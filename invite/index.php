@@ -8,13 +8,14 @@ if (empty($_SESSION['pseudo'])) {
     include "../bdd/connect.php";
     include "../bdd/info.php";
     include "../template/header.php";
-    $test = $mysqli->query("SELECT SUM(org_statut) FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
+    $test = $mysqli->query("SELECT org_statut FROM t_organisateur_org WHERE org_pseudo = '" . $_SESSION['pseudo'] . "';");
     $val = $test->fetch_assoc();
-    if ($val['SUM(org_statut)'] == 0) {
+    if ($val['org_statut'] == 0) {
         header('Location: ../admin/index.php');
     }
-    include "../template/menuAdmin.php";
+    include "../template/menuInvite.php";
     include "../template/compte_rebours.php";
+    include "../template/messageGlobal.php";
     include "../template/tableau.php";
 ?>
 
@@ -30,7 +31,7 @@ if (empty($_SESSION['pseudo'])) {
                         <th>Voiture</th>
                         <th>Vient de</th>
                         <th>Places voitures</th>
-                        <th>Amène</th>
+                        <th>Nombre de matelas</th>
                         <th>Pseudo</th>
                         <th>Gestion</th>
                     </tr>
@@ -55,8 +56,6 @@ if (empty($_SESSION['pseudo'])) {
                                     <?php
                                     if ($data["sre_voiture"] == 1) {
                                         echo "Oui";
-                                    }else{
-                                        echo "Non";
                                     }
                                     ?>
                                 </td>
@@ -74,7 +73,7 @@ if (empty($_SESSION['pseudo'])) {
                                 </td>
                                 <td>
                                     <?php
-                                    echo $data["sre_amene"];
+                                    echo $data["sre_matelas"];
                                     ?>
                                 </td>
                                 <td>
@@ -96,6 +95,41 @@ if (empty($_SESSION['pseudo'])) {
                             </tr>
                     <?php
                         }
+                    }
+                    ?>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Ammène</th>
+                        <th>Gestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($invite2 as $data) {
+                    ?>
+                    <tr>
+                        <td>
+                            <?php
+                            echo $data["sre_amene"];
+                            ?>
+                        </td>
+                        <td>
+                            <form method="post" action="emmene.php">
+                                <input type="hidden" name="id" value="<?php echo $data['sre_id'] ?>" />
+                                <input type="submit" class="btn btn-success btn-block" style="text-align: center;" method="post" value="Modifier">
+                            </form>
+                            <hr>
+                            <form method="post" action="supprInv.php">
+                                <input type="hidden" name="id" value="<?php echo $data['sre_id'] ?>" />
+                                <input type="submit" class="btn btn-danger btn-block" style="text-align: center;" method="post" value="Supprimer">
+                            </form>
+                        </td>
+                    </tr>
+                    <?php
                     }
                     ?>
                 </tbody>

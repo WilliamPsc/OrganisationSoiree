@@ -22,11 +22,11 @@ if (isset($_SESSION['pseudo'])) {
             if (isset($_GET['mdpchg'])) {
                 if ($_GET["mdpchg"] == '-1') {
                     echo "<div class=\"alert alert-warning\">";
-                    echo "<strong>Attention!</strong> Pseudo inexistant. Vérifiez que vous l'avez bien écrit.";
+                    echo "<strong>Attention!</strong> Mail inexistant. Vérifiez que vous l'avez bien écrit ou c'était peut-être un autre 😉.";
                     echo "</div>";
                 } elseif ($_GET['mdpchg'] == '-2') {
                     echo "<div class=\"alert alert-warning\">";
-                    echo "<strong>Attention!</strong> Champ pseudo ou champ mail vide ! Veuillez compléter les deux.";
+                    echo "<strong>Attention!</strong> Champ vide !";
                     echo "</div>";
                 }
             }
@@ -36,10 +36,6 @@ if (isset($_SESSION['pseudo'])) {
             <div class="form-group">
                 <label for="mail">Mail:</label>
                 <input type="email" class="form-control" placeholder="mail@exemple.fr" name="mail" required>
-            </div>
-            <div class="form-group">
-                <label for="pseudo">Pseudo:</label>
-                <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" required>
             </div>
             <button type="submit" class="btn btn-primary" id='envoi'>Envoyer</button>
         </form>
