@@ -3,7 +3,7 @@ session_start();
 include "connect.php";
 if (
     isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) && isset($_POST['place']) && isset($_POST['amene'])
-    && isset($_POST['matelas']) && isset($_POST['pseudo']) && isset($_POST['pwd'])) {
+    && isset($_POST['matelas']) && isset($_POST['pseudo']) && isset($_POST['pwd']) && isset($_POST['mail'])) {
 
     // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
     // pour éliminer toute attaque de type injection SQL et XSS
@@ -15,6 +15,7 @@ if (
     $matelas = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['matelas']));
     $pseudo = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pseudo']));
     $password = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pwd']));
+    $mail = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['mail']));
     $pass = hash('sha256', $password);
 
     if($voiture == 0){
@@ -34,8 +35,8 @@ if (
                         VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $place . "','" . $amene . "','" . $matelas . "')";
             $exec_requete = mysqli_query($mysqli, $requete1);
 
-            $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_validation`, `org_pseudo`, `org_password`, `org_statut`)
-                        VALUES ('" . $prenom . "','" . $nom . "','1','" . $pseudo . "','" . $pass . "','1')";
+            $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_pseudo`, `org_password`, `org_statut`, `org_mail`)
+                        VALUES ('" . $prenom . "','" . $nom . "','" . $pseudo . "','" . $pass . "','1', '" . $mail . "')";
             $exec_requete2 = mysqli_query($mysqli, $requete2);
             if ($exec_requete && $exec_requete2) {
                 header('Location: ../admin/index.php');

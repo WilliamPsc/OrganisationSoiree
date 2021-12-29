@@ -25,6 +25,14 @@ if (isset($_SESSION['pseudo'])) {
         }
 
         if (isset($_GET['mdpchg'])) {
+            if ($_GET["mdpchg"] == '2') {
+                echo "<div class=\"alert alert-success\">";
+                echo "<strong>Félicitations!</strong> Mot de passe changé ! Un mail vous a été envoyé, si vous ne le trouvez pas regardez dans vos spams ! Vous pourrez ensuite vous connecter.";
+                echo "</div>";
+            }
+        }
+
+        if (isset($_GET['mdpchg'])) {
             if ($_GET["mdpchg"] == '-1') {
                 echo "<div class=\"alert alert-warning\">";
                 echo "<strong>Attention!</strong> Mot de passe changé ! Regardez vos mails (spams compris)";

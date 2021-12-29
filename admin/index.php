@@ -18,6 +18,7 @@
         }
         include "../template/menuAdmin.php";
         include "../template/compte_rebours.php";
+        include "../template/messageGlobal.php";
         include "../template/tableau.php";
     ?>
 
@@ -33,6 +34,7 @@
                             <th>Voiture</th>
                             <th>Vient de</th>
                             <th>Places voitures</th>
+                            <th>Nombre de matelas</th>
                             <th>Amène</th>
                             <th>Gestion</th>
                         </tr>
@@ -51,8 +53,6 @@
                                     <?php
                                     if ($data["sre_voiture"] == 1) {
                                         echo "Oui";
-                                    }else{
-                                        echo "Non";
                                     }
                                     ?>
                                 </td>
@@ -66,6 +66,11 @@
                                     if ($data["sre_place"] > 0) {
                                         echo $data["sre_place"];
                                     }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    echo $data["sre_matelas"];
                                     ?>
                                 </td>
                                 <td>

@@ -81,6 +81,13 @@ if (empty($_SESSION['pseudo'])) {
                                                                                 echo $inv['org_pseudo'];
                                                                             }
                                                                             ?>" />
+            <label for="mail">Email de récupération :</label>
+            <input name='mail' class="form-control" type="email" value="<?php
+                                                                        mysqli_data_seek($invite3, 0);
+                                                                        while ($inv = $invite3->fetch_assoc()) {
+                                                                            echo $inv['org_mail'];
+                                                                        }
+                                                                        ?>" />
 
             <label for="amene">Qu'amènes tu en nourriture ?</label>
             <input name='amene' class="form-control" type="text" value=" <?php
