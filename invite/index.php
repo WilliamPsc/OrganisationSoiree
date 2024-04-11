@@ -103,7 +103,7 @@ if (empty($_SESSION['pseudo'])) {
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Ammène</th>
+                        <th>Amène</th>
                         <th>Gestion</th>
                     </tr>
                 </thead>

@@ -8,7 +8,6 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
     $voiture = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['voiture']));
     $vient = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['vient']));
     $place = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['place']));
-    $amene = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['amene']));
     $matelas = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['matelas']));
     $pseudo = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pseudo']));
     $password = mysqli_real_escape_string($mysqli, htmlspecialchars($_POST['pwd']));
@@ -24,7 +23,7 @@ if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['voiture']) 
     } else {
         if ($prenom !== "" && $nom != "" && $voiture != "" && $pseudo != "" && $pass != "") {
             $requete1 = "INSERT INTO `t_soiree_sre`(`org_pseudo`, `sre_prenom`, `sre_confirmation`, `sre_voiture`, `sre_vient`, `sre_place`, `sre_amene`, `sre_matelas`)
-                            VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $vient . "','" . $place . "','" . $amene . "','" . $matelas . "')";
+                            VALUES ('" . $pseudo . "','" . $prenom . "','1','" . $voiture . "','" . $vient . "','" . $place . "','','" . $matelas . "')";
             $exec_requete = mysqli_query($mysqli, $requete1);
 
             $requete2 = "INSERT INTO `t_organisateur_org`(`org_prenom`, `org_nom`, `org_pseudo`, `org_password`, `org_statut`, `org_mail`)

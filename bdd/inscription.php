@@ -72,8 +72,7 @@
                     <input type="number" class="form-control" name="place" value="0" min="0" max="10" />
                 </div>
                 <div class="form-group">
-                    <label for="amene">Qu'amènes tu en nourriture ?</label>
-                    <input type="text" class="form-control" placeholder="Jus de fruits, bonbons, ..." name="amene" value="">
+                    <p>Qu'amènes tu en nourriture ? <i>Ceci sera à remplir une fois connecté au site !</i></p>
                 </div>
                 <div class="form-group">
                     <label for="matelas">Nombre de matelas que tu amènes :</label>
